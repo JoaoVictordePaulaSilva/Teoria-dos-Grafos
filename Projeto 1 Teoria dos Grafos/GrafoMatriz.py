@@ -14,6 +14,21 @@ class Grafo:
             self.adj[v][w] = 0
             self.m -= 1
 
+    def insere_vertice(self, rotulo):
+        self.n += 1
+        for linha in self.adj:
+            linha.append(0)
+        self.adj.append([0] * self.n)
+
+    def remove_vertice(self, v):
+        if v >= self.n:
+            print("Vértice inválido.")
+            return
+        self.n -= 1
+        del self.adj[v] 
+        for linha in self.adj:
+            del linha[v]  
+
     def show(self):
         print(f"n: {self.n}")
         print(f"m: {self.m}")
@@ -42,7 +57,20 @@ class Grafo:
                 if self.adj[i][j] != self.adj[j][i]:
                     return 0
         return 1
+    
+    def verificar_conexidade(self):
+        visitado = [False] * self.n
+        self.vizinhanca(0, visitado)
 
+        if all(visitado):
+            return "conexo", None
+        else:
+            return "desconexo", self
+    def vizinhanca(self, v, visitado):
+        visitado[v] = True
+        for w in range(self.n):
+            if self.adj[v][w] == 1 and not visitado[w]:
+                self.vizinhanca(w, visitado)    
 
 def carregar_grafo(arquivo):
     with open(arquivo, 'r', encoding='utf-8') as f:
@@ -63,6 +91,23 @@ def carregar_grafo(arquivo):
     
     return grafo, nomes_vertices
 
-# Uso
-grafo, nomes = carregar_grafo("Grafo Teste.txt")
-grafo.show()
+def salvar_grafo(arquivo, grafo, nomes_vertices):
+    with open(arquivo, 'w', encoding='utf-8') as f:
+        f.write("Grafo\n")
+        f.write(f"{grafo.n}\n")  # Número de vértices
+        
+        # Escrevendo os nomes dos vértices
+        for v in range(grafo.n):
+            nome = nomes_vertices.get(v, f"V{v}")  # Usa um nome padrão caso não exista
+            f.write(f'{v} "{nome}"\n')
+
+        f.write(f"{grafo.m}\n")  # Número de arestas
+
+        # Escrevendo as arestas
+        for v in range(grafo.n):
+            for w in range(grafo.n):
+                if grafo.adj[v][w] == 1:
+                    f.write(f"{v} {w}\n")
+
+    print("Grafo salvo com sucesso!")
+
