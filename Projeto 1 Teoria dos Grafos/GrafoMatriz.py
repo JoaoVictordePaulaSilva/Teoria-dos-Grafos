@@ -57,7 +57,7 @@ class Grafo:
                 if self.adj[i][j] != self.adj[j][i]:
                     return 0
         return 1
-    
+
     def verificar_conexidade(self):
         visitado = [False] * self.n
         self.vizinhanca(0, visitado)
@@ -75,27 +75,27 @@ class Grafo:
 def carregar_grafo(arquivo):
     with open(arquivo, 'r', encoding='utf-8') as f:
         linhas = f.readlines()
-    
+
     num_vertices = int(linhas[1].strip())
     grafo = Grafo(num_vertices)
-    
+
     nomes_vertices = {}
     for i in range(2, 2 + num_vertices):
         partes = linhas[i].strip().split(" ", 1)
         nomes_vertices[int(partes[0])] = partes[1].strip('"')
-    
+
     num_arestas = int(linhas[2 + num_vertices].strip())
     for i in range(3 + num_vertices, 3 + num_vertices + num_arestas):
         v, w = map(int, linhas[i].strip().split())
         grafo.insere_aresta(v, w)
-    
+
     return grafo, nomes_vertices
 
 def salvar_grafo(arquivo, grafo, nomes_vertices):
     with open(arquivo, 'w', encoding='utf-8') as f:
         f.write("Grafo\n")
         f.write(f"{grafo.n}\n")  # Número de vértices
-        
+
         # Escrevendo os nomes dos vértices
         for v in range(grafo.n):
             nome = nomes_vertices.get(v, f"V{v}")  # Usa um nome padrão caso não exista
@@ -110,4 +110,3 @@ def salvar_grafo(arquivo, grafo, nomes_vertices):
                     f.write(f"{v} {w}\n")
 
     print("Grafo salvo com sucesso!")
-
