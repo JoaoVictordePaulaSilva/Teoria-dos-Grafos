@@ -1,87 +1,48 @@
-from GrafoMatriz import carregar_grafo, salvar_grafo, Grafo
-
-grafo = None
-nomes = []
-
-def ler_dados_arquivo():
+from GrafoTeste import (
+    ler_dados_arquivo, gravar_dados_arquivo, inserir_vertice, 
+    inserir_aresta, remover_vertice, remover_aresta, 
+    mostrar_conteudo_arquivo, mostrar_grafo, apresentar_conexidade
+)
+def menu():
     global grafo, nomes
-    grafo, nomes = carregar_grafo("grafo.txt")
-    print("Dados carregados com sucesso!")
+    grafo, nomes = None, None
+    while True:
+        print("\nMenu de opções:")
+        print("a) Ler dados do arquivo grafo.txt")
+        print("b) Gravar dados no arquivo grafo.txt")
+        print("c) Inserir vértice")
+        print("d) Inserir aresta")
+        print("e) Remover vértice")
+        print("f) Remover aresta")
+        print("g) Mostrar conteúdo do arquivo")
+        print("h) Mostrar grafo")
+        print("i) Apresentar a conexidade do grafo e o reduzido")
+        print("j) Encerrar a aplicação")
 
-def gravar_dados_arquivo():
-    if not grafo:
-        print("Nenhum grafo carregado ainda.")
-        return
-    salvar_grafo("grafo.txt", grafo, nomes)
-    print("Dados gravados com sucesso!")
+        escolha = input("Escolha uma opção: ").strip().lower()
 
-def inserir_vertice():
-    if not grafo:
-        print("Nenhum grafo carregado ainda.")
-        return
-    rotulo = input("Digite o rótulo do vértice: ")
-    grafo.insere_vertice(rotulo)
-    print("Vértice inserido com sucesso!")
+        if escolha == 'a' or escolha == 'A':
+            ler_dados_arquivo()
+        elif escolha == 'b' or escolha == 'B':
+            gravar_dados_arquivo()
+        elif escolha == 'c' or escolha == 'C':
+            inserir_vertice()
+        elif escolha == 'd' or escolha == 'D':
+            inserir_aresta()
+        elif escolha == 'e' or escolha == 'E':
+            remover_vertice()
+        elif escolha == 'f' or escolha == 'F':  
+            remover_aresta()
+        elif escolha == 'g' or escolha == 'G':
+            mostrar_conteudo_arquivo()
+        elif escolha == 'h' or escolha == 'H':
+            mostrar_grafo()
+        elif escolha == 'i' or escolha == 'I':
+            apresentar_conexidade()
+        elif escolha == 'j' or escolha == 'J':
+            print("Encerrando aplicação...")
+            break
+        else:
+            print("Opção inválida. Tente novamente.")
 
-def inserir_aresta():
-    if not grafo:
-        print("Nenhum grafo carregado ainda.")
-        return
-
-    v = int(input("Digite o vértice de origem: "))
-    w = int(input("Digite o vértice de destino: "))
-
-    if v >= grafo.n or w >= grafo.n or v < 0 or w < 0:
-        print("Vértice(s) inválido(s).")
-        return
-
-    grafo.insere_aresta(v, w)
-    print("Aresta inserida com sucesso!")
-
-def remover_vertice():
-    if not grafo:
-        print("Nenhum grafo carregado ainda.")
-        return
-    v = int(input("Digite o vértice a ser removido: "))
-    grafo.remove_vertice(v)
-    print("Vértice removido com sucesso!")
-
-def remover_aresta():
-    if not grafo:
-        print("Nenhum grafo carregado ainda.")
-        return
-    v = int(input("Digite o vértice de origem: "))
-    w = int(input("Digite o vértice de destino: "))
-    grafo.remove_aresta(v, w)
-    print("Aresta removida com sucesso!")
-
-def mostrar_conteudo_arquivo():
-    try:
-        with open("grafo.txt", "r", encoding="utf-8") as arquivo:
-            conteudo = arquivo.read()
-            if not conteudo.strip():
-                print("O arquivo está vazio.")
-            else:
-                print("Conteúdo do arquivo grafo.txt:")
-                print(conteudo)
-    except FileNotFoundError:
-        print("Arquivo grafo.txt não encontrado.")
-    except Exception as e:
-        print(f"Erro ao ler o arquivo: {e}")
-
-
-def mostrar_grafo():
-    if grafo:
-        grafo.show()
-    else:
-        print("Nenhum grafo carregado ainda.")
-
-def apresentar_conexidade():
-    if not grafo:
-        print("Nenhum grafo carregado ainda.")
-        return
-    conexidade, grafo_reduzido = grafo.verificar_conexidade()
-    print(f"O grafo é {conexidade}.")
-    if grafo_reduzido:
-        print("Grafo reduzido:")
-        grafo_reduzido.show()
+menu()
