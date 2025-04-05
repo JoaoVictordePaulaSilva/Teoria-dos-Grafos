@@ -1,14 +1,7 @@
 from GrafoMatriz import carregar_grafo, salvar_grafo, Grafo
 
-def apresentar_conexidade():
-    if not grafo:
-        print("Nenhum grafo carregado ainda.")
-        return
-    conexidade, grafo_reduzido = grafo.verificar_conexidade() 
-    print(f"O grafo é {conexidade}.")
-    if grafo_reduzido:
-        print("Grafo reduzido:")
-        grafo_reduzido.show()
+grafo = None
+nomes = []
 
 def ler_dados_arquivo():
     global grafo, nomes
@@ -34,10 +27,15 @@ def inserir_aresta():
     if not grafo:
         print("Nenhum grafo carregado ainda.")
         return
+
     v = int(input("Digite o vértice de origem: "))
     w = int(input("Digite o vértice de destino: "))
-    peso = float(input("Digite o peso da aresta (0 se não houver peso): "))
-    grafo.insere_aresta(v, w, peso)
+
+    if v >= grafo.n or w >= grafo.n or v < 0 or w < 0:
+        print("Vértice(s) inválido(s).")
+        return
+
+    grafo.insere_aresta(v, w)
     print("Aresta inserida com sucesso!")
 
 def remover_vertice():
@@ -59,11 +57,18 @@ def remover_aresta():
 
 def mostrar_conteudo_arquivo():
     try:
-        with open("grafo.txt", "r") as arquivo:
-            print("Conteúdo do arquivo grafo.txt:")
-            print(arquivo.read())
+        with open("grafo.txt", "r", encoding="utf-8") as arquivo:
+            conteudo = arquivo.read()
+            if not conteudo.strip():
+                print("O arquivo está vazio.")
+            else:
+                print("Conteúdo do arquivo grafo.txt:")
+                print(conteudo)
     except FileNotFoundError:
         print("Arquivo grafo.txt não encontrado.")
+    except Exception as e:
+        print(f"Erro ao ler o arquivo: {e}")
+
 
 def mostrar_grafo():
     if grafo:
@@ -80,47 +85,3 @@ def apresentar_conexidade():
     if grafo_reduzido:
         print("Grafo reduzido:")
         grafo_reduzido.show()
-
-def menu():
-    global grafo, nomes
-    grafo, nomes = None, None
-    while True:
-        print("\nMenu de opções:")
-        print("a) Ler dados do arquivo grafo.txt")
-        print("b) Gravar dados no arquivo grafo.txt")
-        print("c) Inserir vértice")
-        print("d) Inserir aresta")
-        print("e) Remover vértice")
-        print("f) Remover aresta")
-        print("g) Mostrar conteúdo do arquivo")
-        print("h) Mostrar grafo")
-        print("i) Apresentar a conexidade do grafo e o reduzido")
-        print("j) Encerrar a aplicação")
-        
-        escolha = input("Escolha uma opção: ").strip().lower()
-        
-        if escolha == 'a':
-            ler_dados_arquivo()
-        elif escolha == 'b':
-            gravar_dados_arquivo()
-        elif escolha == 'c':
-            inserir_vertice()
-        elif escolha == 'd':
-            inserir_aresta()
-        elif escolha == 'e':
-            remover_vertice()
-        elif escolha == 'f':
-            remover_aresta()
-        elif escolha == 'g':
-            mostrar_conteudo_arquivo()
-        elif escolha == 'h':
-            mostrar_grafo()
-        elif escolha == 'i':
-            apresentar_conexidade()
-        elif escolha == 'j':
-            print("Encerrando aplicação...")
-            break
-        else:
-            print("Opção inválida. Tente novamente.")
-
-menu()
