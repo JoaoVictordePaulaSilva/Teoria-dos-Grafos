@@ -1,3 +1,8 @@
+#Caio Teixeira Torres RA: 10417478  - Responsável pelas correções, criação do Grafo modelo e modificações no código para melhor funcionamento.
+#João Victor de Paula Silva RA: 10418556 - Responsável pelo o ínicio e criação da classe grafo para o funcionamento das funções de manipular o arquivo. 
+#Principais mudanças feitas - Caio Teixeira Torres: Correção do insere vértice e alguns erros de formatação no menu e funções. 
+#Principais mudanças feitas - João Victor de Paula Silva: Criação e modificação conforme mudanças do projeto. 
+
 class Grafo:
     def __init__(self, n):
         self.n = n  # Número de vértices
