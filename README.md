@@ -77,4 +77,3 @@ As funcionalidades interagem diretamente com o grafo em memória e com o arquivo
 ## 🏁 Conclusão
 Este sistema apresenta uma abordagem funcional e educacional para o estudo e manipulação de grafos direcionados. Ele pode ser expandido para suportar diferentes aplicações, como redes sociais, rotas de tráfego ou mapas de navegação, como proposto no Cajo Traffic System.
 
-Se quiser, posso gerar uma versão em PDF desse relatório ou exportar para um .docx também. Deseja isso?
