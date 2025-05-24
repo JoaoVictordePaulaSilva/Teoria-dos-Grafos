@@ -75,8 +75,8 @@ O sistema opera por meio de um menu textual com opções como:
 - **h)** Mostrar grafo
 - **i)** Verificar conexidade
 - **j)** Calcular menor caminho com Dijkstra
-- **k)** Calcular menor caminho com ...
-- **k)** Calcular menor caminho com ...
+- **k)** Calcular menor caminho com Bellman-Ford
+- **k)** Calcular menor caminho com Floyd
 - **m)** Encerrar aplicação
 
 As funcionalidades interagem com o grafo em memória e com o arquivo `grafo.txt`, permitindo edições persistentes e análises dinâmicas.
