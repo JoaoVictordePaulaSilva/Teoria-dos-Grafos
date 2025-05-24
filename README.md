@@ -34,7 +34,7 @@ Contém a classe `Grafo`, que representa um grafo direcionado com as seguintes f
 - Verificação de conexidade (a partir do vértice 0).
 - **Algoritmo de Dijkstra** para menor caminho entre dois vértices.
 - **Algoritmo de Bellman-Ford** para calcular o menor caminho.
-- **Algoritmo de Floyd para calcular menor caminho.
+- **Algoritmo de Floyd** para calcular menor caminho.
 
 Funções adicionais:
 
