@@ -21,13 +21,14 @@ class Grafo:
         self.adj.append([0] * self.n)
 
     def remove_vertice(self, v):
-        if v >= self.n:
-            print("Vértice inválido.")
-            return
-        self.n -= 1
-        del self.adj[v]
-        for linha in self.adj:
-            del linha[v]
+            if v >= self.n:
+                print("Vértice inválido.")
+                return
+            self.n -= 1
+            del self.adj[v]
+            for linha in self.adj:
+                del linha[v]
+
 
     def show(self):
         print(f"n: {self.n}")
@@ -99,6 +100,61 @@ class Grafo:
             atual = anterior[atual]
 
         return dist[destino], caminho
+
+
+    def bellman_ford(self, origem, destino):  # <-- agora está dentro da classe
+        dist = [float('inf')] * self.n
+        anterior = [None] * self.n
+        dist[origem] = 0
+
+        for _ in range(self.n - 1):
+            for u in range(self.n):
+                for v in range(self.n):
+                    if self.adj[u][v] != 0:
+                        peso = self.adj[u][v]
+                        if dist[u] + peso < dist[v]:
+                            dist[v] = dist[u] + peso
+                            anterior[v] = u
+
+        # Verificar ciclos de peso negativo
+        for u in range(self.n):
+            for v in range(self.n):
+                if self.adj[u][v] != 0:
+                    peso = self.adj[u][v]
+                    if dist[u] + peso < dist[v]:
+                        print("Ciclo de peso negativo detectado.")
+                        return None, []
+
+        caminho = []
+        atual = destino
+        while atual is not None:
+            caminho.insert(0, atual)
+            atual = anterior[atual]
+
+        return dist[destino], caminho
+    
+    def floyd_warshall(self):
+        dist = [[float('inf')] * self.n for _ in range(self.n)]
+        next_hop = [[None] * self.n for _ in range(self.n)]
+
+            # Inicializa distâncias e predecessores
+        for i in range(self.n):
+            for j in range(self.n):
+                if i == j:
+                    dist[i][j] = 0
+                elif self.adj[i][j] != 0:
+                    dist[i][j] = self.adj[i][j]
+                    next_hop[i][j] = j
+
+            # Algoritmo principal
+        for k in range(self.n):
+            for i in range(self.n):
+                for j in range(self.n):
+                    if dist[i][k] + dist[k][j] < dist[i][j]:
+                        dist[i][j] = dist[i][k] + dist[k][j]
+                        next_hop[i][j] = next_hop[i][k]
+
+        return dist, next_hop
 
 def carregar_grafo(arquivo):
     with open(arquivo, 'r', encoding='utf-8') as f:
