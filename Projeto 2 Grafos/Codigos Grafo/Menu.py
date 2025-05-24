@@ -2,7 +2,7 @@ from GrafoTeste import (
     ler_dados_arquivo, gravar_dados_arquivo, inserir_vertice, 
     inserir_aresta, remover_vertice, remover_aresta, 
     mostrar_conteudo_arquivo, mostrar_grafo, apresentar_conexidade, 
-    apresentar_dijkstra
+    apresentar_dijkstra, apresentar_bellman_ford, apresentar_floyd
 )
 
 def menu():
@@ -19,8 +19,8 @@ def menu():
         print("h) Mostrar grafo")
         print("i) Apresentar a conexidade do grafo")
         print("j) Apresentar o caminho com Dijkstra")
-        print("k) Apresentar o caminho com ...")
-        print("l) Apresentar o caminho com ...")
+        print("k) Apresentar o caminho com Bellman-Ford")
+        print("l) Apresentar o caminho com Floyd")
         print("m) Encerrar a aplicação")
 
         escolha = input("Escolha uma opção: ").strip().lower()
@@ -45,6 +45,10 @@ def menu():
             apresentar_conexidade()
         elif escolha == 'j':
             apresentar_dijkstra()
+        elif escolha == 'k':
+            apresentar_bellman_ford()
+        elif escolha == 'l':
+            apresentar_floyd()
         elif escolha == 'm':
             print("Encerrando aplicação...")
             break
